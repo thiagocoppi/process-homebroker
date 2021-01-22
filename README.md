@@ -8,7 +8,7 @@ As tecnologias utilizadas neste repositórios e suas dependências estão abaixo
 #### Frontend
 O projeto frontend foi utilizado um template e construído a aplicação sobre ele, a pasta do projeto encontra-se dentro deste repositório cuja o nome é frontend.
 - Angular
-- Template Creative Tim [Link Criador](https://www.creative-tim.com/)
+- Template [Creative Tim](https://www.creative-tim.com/)
 
 #### Backend
 - CQRS (Mediatr) - Para contexto de negócios onde temos regras complexas o CQRS se aplica muito bem e deixa os comandos mais didáticos para a área de negócio
