@@ -32,11 +32,12 @@ namespace Infraestrutura.EntityStore
             return usuario;
         }
 
-        public async Task<bool> VerificarUsuarioExiste(string cpf)
+        public async Task<bool> VerificarUsuarioExiste(string cpf, string email)
         {
             return await _context.GetConnection().QueryFirstOrDefaultAsync<bool>(SQL_VERIFICAR_USUARIO_EXISTE_PELO_CPF_CNPJ, new
             {
-                cpf
+                cpf,
+                email
             });
         }
 
@@ -60,7 +61,7 @@ namespace Infraestrutura.EntityStore
             @"INSERT INTO USUARIO (NOME, EMAIL, CPF, CELULAR, DTNASCIMENTO, SENHA, SENHA_TRANSACAO) VALUES (:nome, :email, :cpf, :celular, :dtnascimento, :senha, :SENHA_TRANSACAO) RETURNING ID";
 
         private const string SQL_VERIFICAR_USUARIO_EXISTE_PELO_CPF_CNPJ =
-            @"SELECT 1 FROM USUARIO WHERE CPF = :cpf";
+            @"SELECT 1 FROM USUARIO WHERE CPF = :cpf or EMAIL = :email";
 
         private const string SQL_OBTER_USUARIO_PELO_EMAIL =
             @"SELECT ID, 

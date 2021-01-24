@@ -25,7 +25,7 @@ namespace Infraestrutura.EntityStore
                 quantidade = ordem.Quantidade,
                 codigo = ordem.Acao.Nome,
                 usuario_id = ordem.Usuario.Id,
-                valor_total = ordem.ValorTotal
+                valor_total = ordem.ObterValorOrdem()
             });
             ordem.AlterarIdentificador(IdOrdem);
             return ordem;
@@ -35,10 +35,8 @@ namespace Infraestrutura.EntityStore
         /// Faz o insert e garante que haverá apenas uma ordem cadastrada para o usuário em caso de duplicidade de requests
         /// </summary>
         private const string SQL_CADASTRAR_NOVA_ORDEM =
-            @"INSERT INTO ORDEM (DATA, PRECO, QUANTIDADE, CODIGO, USUARIO_ID, VALOR_TOTAL) 
+            @"INSERT INTO ORDEM (DATA, PRECO, QUANTIDADE, CODIGO, USUARIO_ID, VALOR_TOTAL)
                 SELECT :data, :preco, :quantidade, :codigo, :usuario_id, :valor_total WHERE NOT EXISTS (SELECT ID FROM ORDEM WHERE DATA = :data AND PRECO = :preco AND USUARIO_ID = :usuario_id)
               RETURNING id";
-
-
     }
 }

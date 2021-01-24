@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Domain.Lancamentos.Models;
+using MediatR;
 using System;
 using System.Text.Json.Serialization;
 
@@ -13,6 +14,7 @@ namespace Application.Commands.Ordens.Cadastrar
         public int Quantidade { get; set; }
         public string AssinaturaEletronica { get; set; }
         public DateTime Data { get; set; }
+        public ETipoLancamento TipoOrdem { get; set; }
     }
 
     public class AcaoCommand

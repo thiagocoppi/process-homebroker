@@ -1,5 +1,4 @@
 ﻿using Application.Commands.Tokens.Login;
-using Application.Commands.Usuarios.CriarNovoUsuario;
 using Microsoft.AspNetCore.Mvc;
 using Process_Homebroker.Middleware;
 using System.Net;
@@ -11,11 +10,10 @@ namespace Process_Homebroker.Controllers
     public class SegurancaController : ApiController
     {
         /// <summary>
-        /// Realiza o login na aplicação ProcessExpress com as informações para processar o arquivo OFX
+        /// Realiza o login na aplicação
         /// </summary>
         /// <param name="command">Comando para realizar o login</param>
         /// <returns>Token para acesso à aplicação</returns>
-
         [HttpPost]
         [Route("login")]
         [ProducesResponseType(typeof(CreateLoginCommandResult), (int)HttpStatusCode.OK)]

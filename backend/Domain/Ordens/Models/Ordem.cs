@@ -1,5 +1,6 @@
 ﻿using Domain.Acoes.Models;
 using Domain.Base;
+using Domain.Lancamentos.Models;
 using Domain.Usuarios.Models;
 using System;
 
@@ -20,7 +21,7 @@ namespace Domain.Ordens.Models
             Id = id;
         }
 
-        public Ordem(Acao acao, DateTime data, int quantidade, decimal valor, Usuario usuario, string assinatura)
+        public Ordem(Acao acao, DateTime data, int quantidade, decimal valor, Usuario usuario, string assinatura, ETipoLancamento tipoOrdem)
         {
             Acao = acao;
             Data = data;
@@ -28,6 +29,7 @@ namespace Domain.Ordens.Models
             Usuario = usuario;
             ValorCompra = valor;
             AssinaturaEletronica = assinatura;
+            TipoOrdem = tipoOrdem;
         }
 
         public Acao Acao { get; private set; }
@@ -37,10 +39,26 @@ namespace Domain.Ordens.Models
         public decimal ValorCompra { get; private set; }
         public decimal ValorTotal => ValorCompra * Quantidade;
         public string AssinaturaEletronica { get; private set; }
+        public ETipoLancamento TipoOrdem { get; private set; }
 
         public void AdicionarUsuario(Usuario usuario)
         {
             Usuario = usuario;
+        }
+
+        public decimal ObterValorOrdem()
+        {
+            if (TipoOrdem == ETipoLancamento.C)
+            {
+                return ValorTotal * -1;
+            }
+
+            return ValorTotal;
+        }
+
+        public bool OrdemInvalida()
+        {
+            return Id == Guid.Empty;
         }
     }
 }

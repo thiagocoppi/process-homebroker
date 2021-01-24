@@ -9,6 +9,11 @@ namespace Process_Homebroker.Controllers
     [Route("process-homebroker/api/v{version:apiVersion}/[controller]")]
     public class UsuarioController : ApiController
     {
+        /// <summary>
+        /// Realiza a criação de um novo usuário ao homebroker
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost("criar-novo-usuario")]
         [ProducesResponseType(typeof(CriarNovoUsuarioCommandResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.BadRequest)]
@@ -16,7 +21,7 @@ namespace Process_Homebroker.Controllers
         public async Task<ActionResult<CriarNovoUsuarioCommandResult>> RealizaLancamentoFinanceiro([FromBody] CriarNovoUsuarioCommand command)
         {
             var value = await Mediator.Send(command);
-            return Ok(value); return await Mediator.Send(command);
+            return Ok(value);
         }
     }
 }
