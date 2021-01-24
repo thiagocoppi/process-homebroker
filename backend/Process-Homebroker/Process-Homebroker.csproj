@@ -9,11 +9,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Pessoal\process-homebroker\backend\Process-Homebroker\Process-Homebroker.xml</DocumentationFile>
+    <DocumentationFile>obj\Debug\netcoreapp3.1\Process-Homebroker.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.1.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="FluentMigrator" Version="3.2.11" />
     <PackageReference Include="FluentMigrator.Runner" Version="3.2.11" />
     <PackageReference Include="FluentMigrator.Runner.Postgres" Version="3.2.11" />
@@ -29,6 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Email\Email.csproj" />
     <ProjectReference Include="..\Infraestrutura\Infraestrutura.csproj" />
   </ItemGroup>
 

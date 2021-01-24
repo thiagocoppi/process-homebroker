@@ -5,12 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="9.0.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Queries\" />
+    <PackageReference Include="Autofac" Version="6.1.0" />
+    <PackageReference Include="MailKit" Version="2.10.1" />
   </ItemGroup>
 
   <ItemGroup>
