@@ -18,7 +18,6 @@ O projeto frontend foi utilizado um template e construído a aplicação sobre e
 - Serilog - Para utilização dos logs
 - Dapper como ORM principal, motivo - como o contexto de negócio possui muitas requisições foi escolhido para otimização das querys
 - Fluent Migrator - Para controle da base de dados com as criações de campos etc...
-- OfxSharp - Para leitura dos arquivos Ofx
 - NSwag - Para documentação das APIs
 - NSubstitute - Para fazer os mocks no contexto do teste, para não fazer vínculo com a base de dados
 - Autenticação JWT - Para realizar a autenticação basta preencher o usuário/instituição que ele irá gerar um token para ser utilizados nos demais endpoints
