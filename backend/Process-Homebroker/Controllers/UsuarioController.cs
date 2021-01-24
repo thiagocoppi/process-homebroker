@@ -15,7 +15,8 @@ namespace Process_Homebroker.Controllers
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.InternalServerError)]
         public async Task<ActionResult<CriarNovoUsuarioCommandResult>> RealizaLancamentoFinanceiro([FromBody] CriarNovoUsuarioCommand command)
         {
-            return await Mediator.Send(command);
+            var value = await Mediator.Send(command);
+            return Ok(value); return await Mediator.Send(command);
         }
     }
 }

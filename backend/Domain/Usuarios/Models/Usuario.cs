@@ -34,6 +34,13 @@ namespace Domain.Usuarios.Models
             Senha = senha;
         }
 
+        public Usuario(string nome, string cpf, string id)
+        {
+            Nome = nome;
+            Cpf = cpf;
+            Id = Guid.Parse(id);
+        }
+
         protected Usuario()
         {
 
@@ -70,9 +77,14 @@ namespace Domain.Usuarios.Models
         /// <returns>TRUE se forem o mesmo</returns>
         public bool SenhaEstaCorreta(string hashArmazenado)
         {
-            var hashGerado = GerarMD5(Senha);
+            return EhMesmoHash(Senha, hashArmazenado);
+        }
 
-            return hashGerado == hashArmazenado;
+        public bool EhMesmoHash(string senha, string hash)
+        {
+            var hashNovo = GerarMD5(senha);
+
+            return hashNovo == hash;
         }
 
         private string GerarMD5(string senha)

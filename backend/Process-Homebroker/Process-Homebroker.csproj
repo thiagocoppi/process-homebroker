@@ -10,7 +10,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>obj\Debug\netcoreapp3.1\Process-Homebroker.xml</DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
+    <NoWarn>1701;1702;1591; 0628</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,9 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AlphaVantage\AlphaVantage.csproj" />
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Email\Email.csproj" />
     <ProjectReference Include="..\Infraestrutura\Infraestrutura.csproj" />
+    <ProjectReference Include="..\Network\Network.csproj" />
   </ItemGroup>
 
 

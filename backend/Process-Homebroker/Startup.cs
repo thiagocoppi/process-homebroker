@@ -1,3 +1,4 @@
+using AlphaVantage;
 using Application;
 using Autofac;
 using Domain;
@@ -12,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Network;
+using Process_Homebroker.HttpClients;
 using System.Text;
 
 namespace Process_Homebroker
@@ -23,7 +26,7 @@ namespace Process_Homebroker
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public static IConfiguration Configuration { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -63,6 +66,9 @@ namespace Process_Homebroker
             services.AddSwaggerConfiguration();
             services.ConfigureMidiatR();
             services.AddControllers();
+
+            services.ConfigureHttpClientMiddlewares();
+            services.ConfigureHttpClientAlphaVantage();
         }
 
         public void ConfigureContainer(ContainerBuilder Builder)
@@ -70,6 +76,8 @@ namespace Process_Homebroker
             Builder.RegisterModule(new InfreaestruturaModule());
             Builder.RegisterModule(new DomainModule());
             Builder.RegisterModule(new EmailModule());
+            Builder.RegisterModule(new AlphaModule());
+            Builder.RegisterModule(new NetworkModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +94,7 @@ namespace Process_Homebroker
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

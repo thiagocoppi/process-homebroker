@@ -1,4 +1,5 @@
 ﻿using Domain.Usuarios.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace Domain.Usuarios
@@ -8,5 +9,6 @@ namespace Domain.Usuarios
         Task<Usuario> RegistrarUsuario(Usuario usuario);
         Task<bool> VerificarUsuarioExiste(string cpf);
         Task<Usuario> ObterUsuarioPeloEmail(string email);
+        Task<Usuario> ObterUsuarioPeloId(Guid id);
     }
 }

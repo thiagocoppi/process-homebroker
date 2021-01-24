@@ -23,7 +23,8 @@ namespace Process_Homebroker.Controllers
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.InternalServerError)]
         public async Task<ActionResult<CreateLoginCommandResult>> Authenticate([FromBody] CreateLoginCommand command)
         {
-            return await Mediator.Send(command);
+            var value = await Mediator.Send(command);
+            return Ok(value);
         }
     }
 }

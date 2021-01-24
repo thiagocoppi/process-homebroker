@@ -7,5 +7,6 @@ namespace Domain.Segurancas
     public interface ISegurancaService
     {
         Task<Token> GerarToken(Usuario usuario);
+        Task<Usuario> AbrirToken(Token token);
     }
 }

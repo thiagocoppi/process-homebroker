@@ -48,6 +48,14 @@ namespace Infraestrutura.EntityStore
             });
         }
 
+        public async Task<Usuario> ObterUsuarioPeloId(Guid id)
+        {
+            return await _context.GetConnection().QueryFirstOrDefaultAsync<Usuario>(SQL_OBTER_USUARIO_PELO_ID, new
+            {
+                id
+            });
+        }
+
         private const string SQL_INSERIR_NOVO_USUARIO =
             @"INSERT INTO USUARIO (NOME, EMAIL, CPF, CELULAR, DTNASCIMENTO, SENHA, SENHA_TRANSACAO) VALUES (:nome, :email, :cpf, :celular, :dtnascimento, :senha, :SENHA_TRANSACAO) RETURNING ID";
 
@@ -65,5 +73,17 @@ namespace Infraestrutura.EntityStore
                      DTNASCIMENTO as DataNascimento
             FROM USUARIO 
               WHERE EMAIL = :email";
+
+        private const string SQL_OBTER_USUARIO_PELO_ID =
+            @"SELECT ID, 
+                     NOME, 
+                     SENHA, 
+                     SENHA_TRANSACAO as SenhaTransacaoEletronica, 
+                     EMAIL, 
+                     CPF, 
+                     CELULAR, 
+                     DTNASCIMENTO as DataNascimento
+            FROM USUARIO 
+              WHERE ID = :id";
     }
 }
