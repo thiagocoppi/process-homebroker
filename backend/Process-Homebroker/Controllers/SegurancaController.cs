@@ -1,4 +1,5 @@
 ﻿using Application.Commands.Tokens.Login;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Process_Homebroker.Middleware;
 using System.Net;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Process_Homebroker.Controllers
 {
-    [Route("process-express/api/v{version:apiVersion}/[controller]")]
+    [Route("process-homebroker/api/v{version:apiVersion}/[controller]")]
     public class SegurancaController : ApiController
     {
         /// <summary>
@@ -14,8 +15,7 @@ namespace Process_Homebroker.Controllers
         /// </summary>
         /// <param name="command">Comando para realizar o login</param>
         /// <returns>Token para acesso à aplicação</returns>
-        [HttpPost]
-        [Route("login")]
+        [HttpPost("login")]
         [ProducesResponseType(typeof(CreateLoginCommandResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.InternalServerError)]

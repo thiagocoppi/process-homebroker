@@ -39,7 +39,7 @@ namespace AlphaVantage
                 urlFormatada);
 
             if (result is null || !result.ListaAcoes.Any())
-            {
+            {                
                 throw new Exception("Não foi encontrado nenhuma ação com o código informado!");
             }
 

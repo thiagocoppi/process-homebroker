@@ -1,3 +1,8 @@
 .cor-fundo {
     background-color: #172b4d !important; 
 }
+
+.card-acao {
+    padding-left: 30%;
+    width: 100%;
+}

@@ -66,7 +66,12 @@ namespace Process_Homebroker
             services.AddSwaggerConfiguration();
             services.ConfigureMidiatR();
             services.AddControllers();
-
+            services.AddCors(o => o.AddPolicy("DefaultPolicy", build =>
+            {
+                build.AllowAnyOrigin()
+                     .AllowAnyHeader()
+                     .AllowAnyMethod();
+            }));
             services.ConfigureHttpClientMiddlewares();
             services.ConfigureHttpClientAlphaVantage();
         }
@@ -83,6 +88,8 @@ namespace Process_Homebroker
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
+            app.UseCors("DefaultPolicy");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

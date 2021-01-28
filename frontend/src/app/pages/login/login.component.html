@@ -28,37 +28,44 @@
           </div>
         </div>
         <div class="card-body px-lg-5 py-lg-3">
-          <div class="text-center text-muted mb-4">
-            <small>Faça o login com suas credenciais!</small>
+          <div *ngIf="!register">
+            <div class="text-center text-muted mb-4">
+              <small>Faça o login com suas credenciais!</small>
+            </div>
+            <form role="form" #form="ngForm">
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                  </div>
+                  <input class="form-control" placeholder="Email" type="email" name="email"
+                  [(ngModel)]="autenticacao.email" #senha >
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                  </div>
+                  <input class="form-control" placeholder="Password" type="password" name="password"
+                  [(ngModel)]="autenticacao.senha" #senha >
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="button" class="btn btn-success my-4" (click)="realizarLogin()">Entrar</button>
+              </div>
+            </form>
           </div>
-          <form role="form">
-            <div class="form-group mb-3">
-              <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                </div>
-                <input class="form-control" placeholder="Email" type="email">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                </div>
-                <input class="form-control" placeholder="Password" type="password">
-              </div>
-            </div>
-            <div class="text-center">
-              <button type="button" class="btn btn-primary my-4">Entrar</button>
-            </div>
-          </form>
+          <app-register *ngIf="register"></app-register>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
-          <a href="javascript:void(0)" class="text-light"><small>Criar uma nova conta</small></a> 
+          <a href="javascript:void(0)" class="text-light" (click)="register = true"><small>Criar uma nova conta</small></a> 
         </div>
       </div>
     </div>
   </div>
+  <ngx-spinner *ngIf="mostrarSpinner" bdColor="rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-spin-fade" [fullScreen] = "true"><p style="color: white" > Aguarde... </p></ngx-spinner>
 </div>
+

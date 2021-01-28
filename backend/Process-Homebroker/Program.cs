@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 using System;
+using System.Reflection;
 
 namespace Process_Homebroker
 {
@@ -14,6 +17,8 @@ namespace Process_Homebroker
     {
         public static void Main(string[] args)
         {
+            ConfigureLogging();
+
             var serviceProvider = CreateServices(GetConfiguration());
 
             using (var scope = serviceProvider.CreateScope())
@@ -21,7 +26,7 @@ namespace Process_Homebroker
                 UpdateDatabase(scope.ServiceProvider);
             }
 
-            CreateHostBuilder(args).Build().Run();
+            CreateHost(args);
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -30,7 +35,15 @@ namespace Process_Homebroker
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .ConfigureAppConfiguration(configuration =>
+                {
+                    configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                    configuration.AddJsonFile(
+                        $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json",
+                        optional: true);
+                })
+                .UseSerilog();
 
         /// <summary>
         /// Configure the dependency injection services
@@ -68,6 +81,43 @@ namespace Process_Homebroker
                 $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json",
                 optional: true)
             .Build();
+        }
+
+
+        private static void ConfigureLogging()
+        {
+            var configuration = GetConfiguration();
+
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .Enrich.WithMachineName()
+                .WriteTo.Debug()
+                .WriteTo.Console()
+                .WriteTo.Elasticsearch(ConfigureElasticSink(configuration))
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
+        }
+
+        private static ElasticsearchSinkOptions ConfigureElasticSink(IConfigurationRoot configuration)
+        {
+            return new ElasticsearchSinkOptions(new Uri(configuration["ElasticConfiguration:Uri"]))
+            {
+                AutoRegisterTemplate = true,
+                IndexFormat = $"process-homebroker"
+            };
+        }
+
+        private static void CreateHost(string[] args)
+        {
+            try
+            {
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal($"Failed to start {Assembly.GetExecutingAssembly().GetName().Name}", ex);
+                throw;
+            }
         }
     }
 }
