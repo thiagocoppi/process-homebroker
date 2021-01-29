@@ -20,7 +20,6 @@ export class LoginComponent {
   mostrarSpinner = false;
 
   realizarLogin() {
-    console.log(this.spinnerService);
     this.mostrarSpinner = true;
     this.spinnerService.show()
     this.loginService.realizarLogin(this.autenticacao)
@@ -31,13 +30,10 @@ export class LoginComponent {
     .subscribe(() => {
       this.router.navigate(['dashboard']);
     }, (error) => {
-      console.log(error);
-      
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Ocorreu um erro!',
-        footer: '<a href>Why do I have this issue?</a>'
+        text: error.error.Message
       });
     });
   }

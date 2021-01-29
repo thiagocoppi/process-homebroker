@@ -1,6 +1,7 @@
 ﻿using Domain.Base;
 using Domain.Emails;
 using Domain.Emails.Models;
+using Domain.Exceptions;
 using Domain.Saldos;
 using Domain.Usuarios.Models;
 using Microsoft.Extensions.Configuration;
@@ -27,9 +28,10 @@ namespace Domain.Usuarios
 
         public async Task<Usuario> RegistrarNovoUsuario(Usuario usuario)
         {
+            throw new BusinessException("Usuário já está cadastrado ao sistema!");
             if (await _usuarioStore.VerificarUsuarioExiste(usuario.Cpf, usuario.Email))
             {
-                throw new Exception("Usuário já está cadastrado ao sistema!");
+                throw new BusinessException("Usuário já está cadastrado ao sistema!");
             }
             var senhaTransacao = usuario.AdicionarSenhaTransacaoEletronica();
             var usuarioRegistrado = await _usuarioStore.RegistrarUsuario(usuario);

@@ -1,6 +1,8 @@
-﻿namespace Process_Homebroker.Middleware
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Process_Homebroker.Middleware
 {
-    public class ErrorResponse
+    public class ErrorResponse : ActionResult
     {
         public string Message { get; set; }
         public int Code { get; set; }

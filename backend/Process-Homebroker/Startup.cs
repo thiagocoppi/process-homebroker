@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Network;
 using Process_Homebroker.HttpClients;
+using Process_Homebroker.Middleware;
 using System.Text;
 
 namespace Process_Homebroker
@@ -65,6 +66,7 @@ namespace Process_Homebroker
 
             services.AddSwaggerConfiguration();
             services.ConfigureMidiatR();
+            
             services.AddControllers();
             services.AddCors(o => o.AddPolicy("DefaultPolicy", build =>
             {
@@ -83,6 +85,7 @@ namespace Process_Homebroker
             Builder.RegisterModule(new EmailModule());
             Builder.RegisterModule(new AlphaModule());
             Builder.RegisterModule(new NetworkModule());
+            Builder.RegisterType(typeof(GlobalExceptionMiddleware));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,7 +106,7 @@ namespace Process_Homebroker
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseMiddleware<GlobalExceptionMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
