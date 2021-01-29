@@ -24,8 +24,8 @@ O projeto frontend foi utilizado um template e construído a aplicação sobre e
 
 #### Rodar Projeto
 - Para rodar o projeto há dentro da pasta backend um arquivo para subir todas as dependências pelo docker, o arquivo chama-se docker `docker-compose.yml`.
-- Utilize o comando `docker-compose up -d` e ele irá baixar todas as dependências do backend e criar o banco de dados para rodar a aplicação, após isso é somente dar um start dentro da aplicação que ela irá inicializar e abrir o Swagger.
-- Para rodar o frontend é necessário utilizar os comando, `npm install` e após isso `npm start`.
+- Utilize o comando `docker-compose up -d` dentro da pasta do backend e ele irá baixar todas as dependências do backend e criar o banco de dados para rodar a aplicação, após isso é somente dar um start dentro da aplicação que ela irá inicializar e abrir o Swagger.
+- Para rodar o frontend é necessário utilizar os comando dentro da pasta do frontend, `npm install` e após isso `npm start`.
 
 
 #### Melhorias
